@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Games {
+  id    Int     @id @default(autoincrement())
+  appid  Int    @unique
+  name String
+  createdAt DateTime @default(now())
+}
+
+model GameDetails {
+  id                   Int       @id @default(autoincrement())
+  steamAppId           Int       // SteamアプリのID
+  name                 String    // ゲーム名
+  requiredAge          Int       // 必須年齢
+  isFree               Boolean   // 無料かどうか
+  detailedDescription  String    // 詳細説明
+  shortDescription     String    // 短い説明
+  aboutTheGame         String    // ゲームについて
+  developers           String[]  // 開発者
+  publishers           String[]  // パブリッシャー
+  headerImage          String    // ヘッダー画像URL
+  capsuleImage         String    // カプセル画像URL
+  releaseDate          String    // 発売日
+  website              String?   // 公式サイト（オプション）
+  backgroundImage      String    // 背景画像URL
+  createdAt            DateTime  @default(now()) // データ作成日時
+}
